@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment.development';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -18,14 +20,16 @@ import { environment } from 'src/environments/environment.development';
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ router: routerReducer }),
     StoreDevtoolsModule.instrument({
-      name: 'NgRx Demo App - Pluralsight' ,
-      maxAge: 25, 
+      name: 'NgRx Demo App - Pluralsight',
+      maxAge: 25,
       logOnly: environment.production
-    })
+    }),
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
